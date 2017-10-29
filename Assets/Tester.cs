@@ -44,10 +44,10 @@ public class Tester : MonoBehaviour {
     {
         if (Input.touchCount > 0)
         {
-			if(Input.GetTouch(0).phase == TouchPhase.Began)
-			{
-				audioSource.PlayOneShot(clip);
-			}
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                PlaySound();
+            }
         }
-	}
+    }
 }

@@ -12,7 +12,13 @@ You can check the result here (go to sheet 2) : https://docs.google.com/spreadsh
 
 I will uplad a YouTube video later here : 
 
-What this means is... the perceived audio latency (the Sargon value) is bad not because Unity's audio playing ability, but it is because of Unity's input latency. The gap from my nail sound to the sound you hear is large because of input latency. The XCode's button received the touch faster than Unity's button. I have double check this in Unity with both uGUI's `EventSystem` and `Input.GetTouch`. Both results in the same Sargon.
+What this means is... the perceived audio latency (the Sargon value) is bad not because Unity's audio playing ability, but it is because of Unity's input latency. The gap from my nail sound to the sound you hear is large because of input latency. The XCode's button received the touch faster than Unity's button.
+
+I have double check this in Unity with both uGUI's `EventSystem` and `Input.GetTouch`. Both results in the same Sargon.
+
+I have triple check the new assumption with the second scene "Visual" which has a coroutine that call any method every 1 second. (No input latency involved) Everytime it will change the font's color from red to white and vice versa. Without nail's sound to measure, I run this and use a separate DSLR camera with 60 fps to capture the screen along with the sound, finally use Premiere Pro to examine the period between the font changing color to the peak of the sound. That would be exactly Unity's audio latency, which the result is 4 frames for both native iOS audio plugin and Unity's `AudioSource.Play` with all formats. No different at all.
+
+This should confirm that audio latency can't be fix with a native plugin. I don't think it can go any lower on iOS. What we have to fix is Unity's input latency.
 
 ## Is this the end? Can we have low audio latency?
 
