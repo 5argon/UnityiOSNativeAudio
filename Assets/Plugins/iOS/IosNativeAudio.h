@@ -9,6 +9,6 @@
 
 - (void)LoadSoundIos;
 - (void)PlaySoundIos;
++ (IosNativeAudio *)GetInstance;
 
 @end
-

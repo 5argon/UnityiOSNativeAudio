@@ -11,6 +11,25 @@ public class Tester : MonoBehaviour {
 	public AudioClip clip2;
 	public AudioClip clip3;
 
+    private static Tester instance;
+    public static Tester Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Tester>();
+            }
+            return instance;
+        }
+    }
+
+    public void StartNativeTouch()
+	{
+		Debug.Log("Start native touch!!");
+		NativeTouch.StartNativeTouch();
+	}
+
 	public void Test()
 	{
 		text.text = IosNativeAudio.Test(4).ToString();
@@ -39,15 +58,4 @@ public class Tester : MonoBehaviour {
 	{
 		audioSource.PlayOneShot(clip3);
 	}
-
-    public void Update()
-    {
-        if (Input.touchCount > 0)
-        {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                PlaySound();
-            }
-        }
-    }
 }

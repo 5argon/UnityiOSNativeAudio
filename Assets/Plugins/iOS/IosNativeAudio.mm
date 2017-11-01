@@ -3,6 +3,8 @@
 
 @implementation IosNativeAudio
 
+static IosNativeAudio* delegateObject;
+
 - (void)LoadSoundIos {
     
     // Construct URL to sound file
@@ -20,9 +22,18 @@
     [_audioPlayer play];
     NSLog(@"Play!");
 }
+
++ (IosNativeAudio*) GetInstance
+{
+    if(delegateObject == nil)
+    {
+        delegateObject = [[IosNativeAudio alloc]init];
+    }
+    return delegateObject;
+}
+
 @end
 
-static IosNativeAudio* delegateObject = nil;
 
 
 extern "C" {
@@ -39,7 +50,6 @@ extern "C" {
     
     void _PlaySound() {
         [delegateObject PlaySoundIos];
-       
     }
     
 }
