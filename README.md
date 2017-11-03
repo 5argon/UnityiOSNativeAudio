@@ -35,3 +35,18 @@ Another intepretation of this finding is that all Unity games in the market has 
 Both plugins are planned to be on the Asset Store later after I have made sure it is working fine in my own music game Mel Cadence (http://exceed7.com/mel-cadence/). Starting from iOS side then Android. 
 
 If you don't want to wait or don't want to pay me (😭), this project already contains the most barebone form of both Native Audio and Native Touch. You can hack your own solution starting from examples in my code if you want. Part of it utilize the result from [this research](https://github.com/5argon/UnitySendMessageEfficiencyTest) to make sure the talk back from native to C# is the fastest possible.
+
+# Update (3/11/2017) : The state of Android
+
+I have tested the Native Touch on Android. Unfortunately I could not get the touch to be faster than Unity ones. In fact it is a little bit slower sometimes.
+
+The method I use I believe is the fastest way I can do to make Java talk to C#.
+1. `UnityPlayer` in `UnityPlayerActivity` was replaced directly with my own sub class.
+2. My subclass has a new `onTouchEvent`
+3. This `onTouchEvent` did not use `UnitySendMessage` but using @FunctionalInterface to call to C#. It received this interface using Unity C#'s `AndroidJavaProxy`
+4. The sound playing method in C# is further optimized to play using `AndroidJavaProxy`'s `Invoke` override to avoid ["look for c# methods matching the signature"](https://docs.unity3d.com/ScriptReference/AndroidJavaProxy.Invoke.html)
+5. I am not even sending back any parameters yet, like touch coordinates, etc.
+
+I could not think of any faster way than this. So I would like to conclude that it is pointless to use Native Touch with Unity Android. There is a chance that different device might behave differently and in fact maybe faster or even slower. (My device is Nexus 5) But I won't be including Android support in my Native Touch plugin and name it iOS Native Touch instead. One advantage that you would like Native Touch on Android is for getting [other native touch parameters](https://developer.android.com/reference/android/view/MotionEvent.html) that Unity does not provide, rather than a speed improvement.
+
+However there is one more rather extreme way, that is you don't talk to C# at all. All the resources to determine whether Android should play audio on a particular touch or not should be completely reside in Java! Then after the hijacked touch and some ifs, we should call to Android Native Audio directly.. It will be very hardcore from game design perspective, for example how can I determine should I play "Perfect" sound or "Great" sound before sending touch to Unity? Is it even possible in the same frame?
