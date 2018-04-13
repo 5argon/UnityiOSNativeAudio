@@ -6,6 +6,8 @@ This Unity project is the continuation of my research [Unity's Mobile Audio Late
 
 Previously I have made some assumptions about using OS's native method in Unity would solve the problem. In this project I show that native audio does NOT help much but rather we need a native TOUCH INPUT plugin to solve the "perceived" audio latency problem.
 
+(Update 13/04/2018 : [Now PART 3 of the video above is available.](https://www.youtube.com/watch?v=Riws7Ais3bo) It improve on the iOS side by using `OpenAL` instead of `AVAudioPlayer`. I have confirmed we can get even better latency that way. Also, a website for pre-made solution [Native Audio](http://exceed7.com/native-audio/) and [iOS Native Touch](http://exceed7.com/ios-native-touch/) are now up.)
+
 ## Native Audio is not all of the solution, we also need Native Touch
 
 I have written the iOS native audio plugin for use with Unity (this repo). However I was surprised that this time the average Sargon only a bit (1-5%) better than `AudioSource.Play()`. This same iPod running Sargon test with [iOSSoundTest](https://github.com/5argon/iOSSoundTest) have much lower Sargon.
@@ -32,7 +34,7 @@ Another intepretation of this finding is that all Unity games in the market has 
 
 # Plugin Release
 
-Both plugins are planned to be on the Asset Store later after I have made sure it is working fine in my own music game Mel Cadence (http://exceed7.com/mel-cadence/). Starting from iOS side then Android. 
+Both plugins ([Native Audio](http://exceed7.com/native-audio/) and [iOS Native Touch](http://exceed7.com/ios-native-touch/)) are planned to be on the Asset Store later after I have made sure it is working fine in my own music game Mel Cadence (http://exceed7.com/mel-cadence/).
 
 If you don't want to wait or don't want to pay me (😭), this project already contains the most barebone form of both Native Audio and Native Touch. You can hack your own solution starting from examples in my code if you want. Part of it utilize the result from [this research](https://github.com/5argon/UnitySendMessageEfficiencyTest) to make sure the talk back from native to C# is the fastest possible.
 
