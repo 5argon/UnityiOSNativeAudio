@@ -6,21 +6,21 @@ This Unity project is the continuation of my research [Unity's Mobile Audio Late
 
 Previously I have made some assumptions about using OS's native audio method in Unity would solve the problem. In this project I show that native audio helps but that is not all, we need a native TOUCH INPUT plugin to solve the "perceived" audio latency problem.
 
-(Update 13/04/2018 : [Now PART 3 of the video above is available.](https://www.youtube.com/watch?v=Riws7Ais3bo) It improve on the iOS side by using `OpenAL` instead of `AVAudioPlayer`. I have confirmed we can get even better latency that way. (This makes my previous assumption that native audio does not help much wrong, it helps a lot with `OpenAL` at least on iOS) Also, a website for pre-made solution [Native Audio](http://exceed7.com/native-audio/) and [iOS Native Touch](http://exceed7.com/ios-native-touch/) are now up.)
+(Update 13/04/2018 : [Now PART 3 of the video above is available.](https://www.youtube.com/watch?v=Riws7Ais3bo) It improve on the iOS side by using `OpenAL` instead of `AVAudioPlayer`. I have confirmed we can get even better latency that way. So in this page if you see me saying native audio does not help that much it is not true anymore. The improvement is now significant with `OpenAL` (at least on iOS) Also, a website for pre-made solution [Native Audio](http://exceed7.com/native-audio/) and [iOS Native Touch](http://exceed7.com/ios-native-touch/) are now up.)
 
 ## Native Audio is not all of the solution, we also need Native Touch
 
-I have written the iOS native audio plugin for use with Unity (this repo). However I was surprised that this time the average Sargon only a bit (1-5%) better than `AudioSource.Play()`. This same iPod running Sargon test with [iOSSoundTest](https://github.com/5argon/iOSSoundTest) have much lower Sargon.
+I have written the iOS native audio plugin for use with Unity (this repo). However I was surprised that this time the average nail sound to response sound was only a bit (1-5%) better than `AudioSource.Play()`. This same iPod running this test with [iOSSoundTest](https://github.com/5argon/iOSSoundTest) have much lower time difference.
 
 But the code of iOSSoundTest and this Unity-iOS native plugin is almost the same! (Please check `Plugins/iOS/iOSNativeAudio.mm`) What else could Unity add?
 
 You can check the result here (go to sheet 2) : https://docs.google.com/spreadsheets/d/1kSqkLM2C1NjxXg2oBcZzsVc9ooT4pZo2wSOY0Vt8C7k/edit?usp=sharing
 
-What this means is... the perceived audio latency (the Sargon value) is bad not because Unity's audio playing ability, but it is because of Unity's input latency. The gap from my nail sound to the sound you hear is large because of input latency. The XCode's button received the touch faster than Unity's button.
+What this means is... the perceived audio latency (the recorded nail sound to response sound interval) is bad not just because Unity's thick audio layer, but it is also because of Unity's input latency. The XCode's native button surely receives touch faster than Unity's button.
 
 ## Are you sure it is because of touch?
 
-Just in case watching the [YouTube video](https://www.youtube.com/watch?v=6Wot7lzZR5o) at the top of this page does not convince you enough, I have double check this in Unity with both uGUI's `EventSystem` and `Input.GetTouch`. Both results in the same Sargon.
+Just in case watching the [YouTube video](https://www.youtube.com/watch?v=6Wot7lzZR5o) at the top of this page does not convince you enough, I have double check this in Unity with both uGUI's `EventSystem` and `Input.GetTouch`. Both results in the same latency.
 
 I have triple check the new assumption with the second scene "Visual" which has a coroutine that call any method every 1 second. (No input latency involved) Everytime it will change the font's color from red to white and vice versa. Without nail's sound to measure, I run this and use a separate DSLR camera with 60 fps to capture the screen along with the sound, finally use Premiere Pro to examine the period between the font changing color to the peak of the sound. That would be exactly Unity's audio latency, which the result is 3-4 frames for both native iOS audio plugin and Unity's `AudioSource.Play` with all formats. (Native one is sometimes better, but not significant)
 
