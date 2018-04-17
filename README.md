@@ -4,9 +4,9 @@
 
 This Unity project is the continuation of my research [Unity's Mobile Audio Latency Problem And Solutions](http://exceed7.com/mobile-native-audio/research.html)
 
-Previously I have made some assumptions about using OS's native method in Unity would solve the problem. In this project I show that native audio does NOT help much but rather we need a native TOUCH INPUT plugin to solve the "perceived" audio latency problem.
+Previously I have made some assumptions about using OS's native audio method in Unity would solve the problem. In this project I show that native audio helps but that is not all, we need a native TOUCH INPUT plugin to solve the "perceived" audio latency problem.
 
-(Update 13/04/2018 : [Now PART 3 of the video above is available.](https://www.youtube.com/watch?v=Riws7Ais3bo) It improve on the iOS side by using `OpenAL` instead of `AVAudioPlayer`. I have confirmed we can get even better latency that way. Also, a website for pre-made solution [Native Audio](http://exceed7.com/native-audio/) and [iOS Native Touch](http://exceed7.com/ios-native-touch/) are now up.)
+(Update 13/04/2018 : [Now PART 3 of the video above is available.](https://www.youtube.com/watch?v=Riws7Ais3bo) It improve on the iOS side by using `OpenAL` instead of `AVAudioPlayer`. I have confirmed we can get even better latency that way. (This makes my previous assumption that native audio does not help much wrong, it helps a lot with `OpenAL` at least on iOS) Also, a website for pre-made solution [Native Audio](http://exceed7.com/native-audio/) and [iOS Native Touch](http://exceed7.com/ios-native-touch/) are now up.)
 
 ## Native Audio is not all of the solution, we also need Native Touch
 
