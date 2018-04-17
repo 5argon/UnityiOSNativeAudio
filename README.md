@@ -38,6 +38,8 @@ Both plugins ([Native Audio](http://exceed7.com/native-audio/) and [iOS Native T
 
 If you don't want to wait or don't want to pay me (😭), this project already contains the most barebone form of both Native Audio and Native Touch. You can hack your own solution starting from examples in my code if you want. Part of it utilize the result from [this research](https://github.com/5argon/UnitySendMessageEfficiencyTest) to make sure the talk back from native to C# is the fastest possible.
 
+EDIT : Both plugins are now available [Native Audio](http://exceed7.com/native-audio/), [iOS Native Touch](http://exceed7.com/ios-native-touch/).
+
 # Update (3/11/2017) : The state of Android
 
 I have tested the Native Touch on Android. Unfortunately I could not get the touch to be faster than Unity ones. In fact it is a little bit slower sometimes.
