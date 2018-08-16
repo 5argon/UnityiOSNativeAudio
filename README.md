@@ -1,12 +1,16 @@
-# UnityiOSNativeAudio
+# Unity iOS/Android Native Audio, Native Touch, and latency
 
 [![youtube](youtube.png)](https://www.youtube.com/watch?v=6Wot7lzZR5o)
 
-This Unity project is the continuation of my research [Unity's Mobile Audio Latency Problem And Solutions](http://exceed7.com/mobile-native-audio/research.html)
+This Unity project is the continuation of my research [Unity's Mobile Audio Latency Problem And Solutions](http://exceed7.com/mobile-native-audio/research.html) which contains many false conclusion but still a good foundation for this.
 
 Previously I have made some assumptions about using OS's native audio method in Unity would solve the problem. In this project I show that native audio helps but that is not all, we need a native TOUCH INPUT plugin to solve the "perceived" audio latency problem.
 
-(Update 13/04/2018 : [Now PART 3 of the video above is available.](https://www.youtube.com/watch?v=Riws7Ais3bo) It improve on the iOS side by using `OpenAL` instead of `AVAudioPlayer`. I have confirmed we can get even better latency that way. So in this page if you see me saying native audio does not help that much it is not true anymore. The improvement is now significant with `OpenAL` (at least on iOS) Also, a website for pre-made solution [Native Audio](http://exceed7.com/native-audio/) and [iOS Native Touch](http://exceed7.com/ios-native-touch/) are now up.)
+**Update 13/04/2018** : [Now PART 3 of the video above is available.](https://www.youtube.com/watch?v=Riws7Ais3bo) It improve on the iOS side by using `OpenAL` instead of `AVAudioPlayer`. I have confirmed we can get even better latency that way. So in this page when you see me saying "native audio does not help that much" that is not true anymore! The improvement is now significant with `OpenAL` (at least on iOS) Also, a website for pre-made solution [Native Audio](http://exceed7.com/native-audio/) and [iOS Native Touch](http://exceed7.com/ios-native-touch/) are now up.)
+
+**Update 17/08/2018** : At the **Android** side, I have successfully improved the audio latency by using OpenSL ES + good double buffering technique + ensuring the fast track by going great length as far as resampling the audio to match the liking of each Android device. You can read the research here [Android Native Audio Primer for Unity Developers](https://gametorrahod.com/androids-native-audio-primer-for-unity-developers-65acf66dd124) to get how to achieve minimum latency on Android. All of that will be integrated into [Native Audio](http://exceed7.com/native-audio/) plugin version 2.0 or if you want to try implementing it yourself the mentioned research article should be enough.
+
+So if you see me saying native audio on android does not help reducing latency much, it is not true anymore. Also I remembered saying somewhere that OpenSL ES is not that much difference from Java's `AudioTrack` but that is because of my incompetence at the time. I didn't know how to achieve fast track with NDK, didn't know about resampling, and did not do double buffering. OpenSL ES is now the way to go according to [the official Google document](https://developer.android.com/ndk/guides/audio/). (Along with **AAudio** which I haven't tried yet but it only works for Oreo+)
 
 ## Native Audio is not all of the solution, we also need Native Touch
 
@@ -54,3 +58,11 @@ The method I use I believe is the fastest way I can do to make Java talk to C#.
 I could not think of any faster way than this. So I would like to conclude that it is pointless to use Native Touch with Unity Android. There is a chance that different device might behave differently and in fact maybe faster or even slower. (My device is Nexus 5) But I won't be including Android support in my Native Touch plugin and name it iOS Native Touch instead. One advantage that you would like Native Touch on Android is for getting [other native touch parameters](https://developer.android.com/reference/android/view/MotionEvent.html) that Unity does not provide, rather than a speed improvement.
 
 However there is one more rather extreme way, that is you don't talk to C# at all. All the resources to determine whether Android should play audio on a particular touch or not should be completely reside in Java! Then after the hijacked touch and some ifs, we should call to Android Native Audio directly.. It will be very hardcore from game design perspective, for example how can I determine should I play "Perfect" sound or "Great" sound before sending touch to Unity? Is it even possible in the same frame?
+
+# Update (17/08/2018) : The state of Android 2
+
+I recently got a new phone, so I tried the same approach as the last update. (With a little bit of optimization on shorter code path, would not make much difference I think) But this time I managed to get the response time faster for about 10-16ms. It sounds small, but for perspective this is about a half of perfect window for many music games, 33ms. On game like DDR the timing for Marvelous (highest) is just 16ms so if you use vanilla Unity input to make DDR the player would be randomly thrown into or out of Marvelous. Some samples from my "Android Native Touch" is as follows :
+
+![android native touch time](https://forum.unity.com/attachments/screenshot-2018-08-16-17-14-32-png.292035/)
+
+Also my plugin can get the real native timestamp that the touch really happen and can be outside of the frame (similar to the new input system that Unity team is making now) so the time does not get locked to the frame rate. Even if you must react to the touch in-frame, you know the real time that the touch happen to react better, and more truthfully.
