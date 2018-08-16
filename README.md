@@ -66,3 +66,5 @@ I recently got a new phone, so I tried the same approach as the last update. (Wi
 ![android native touch time](https://forum.unity.com/attachments/screenshot-2018-08-16-17-14-32-png.292035/)
 
 Also my plugin can get the real native timestamp that the touch really happen and can be outside of the frame (similar to the new input system that Unity team is making now) so the time does not get locked to the frame rate. Even if you must react to the touch in-frame, you know the real time that the touch happen to react better, and more truthfully.
+
+My native touch plugin was previously named "iOS Native Touch" because I thought it is useless on Android, but with this 10-16ms improvement I think it is now meaningful. In the next version it would include Android support and renamed to just "Native Touch".
